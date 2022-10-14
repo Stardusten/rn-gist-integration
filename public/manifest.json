@@ -1,9 +1,9 @@
 {
   "manifestVersion": 1,
-  "id": "plugin_template",
-  "name": "Plugin Template",
-  "author": "remnote",
-  "repoUrl": "",
+  "id": "rn_gist_integration",
+  "name": "RN Gist Integration",
+  "author": "Stardust",
+  "repoUrl": "https://github.com/Stardusten/rn-gist-integrationhttps://github.com/Stardusten/rn-gist-integration",
   "version": {
     "major": 0,
     "minor": 0,
@@ -11,7 +11,7 @@
   },
   "theme": [],
   "enableOnMobile": false,
-  "description": "",
+  "description": "Allows you to embed gist code blocks in RemNote.",
   "requestNative": false,
   "requiredScopes": [
     {
