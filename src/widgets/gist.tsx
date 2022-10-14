@@ -1,25 +1,16 @@
 import {
   AppEvents, RemId,
   renderWidget,
-  useAPIEventListener, useGetRemsByIdsReactive,
-  usePlugin,
-  useRunAsync,
+  useTracker,
   WidgetLocation,
 } from '@remnote/plugin-sdk';
 import Gist from 'react-gist';
-import { useState } from 'react';
 
 export const GistWidget = () => {
 
-  const plugin = usePlugin();
-  const [change, setChange] = useState(false);
-
-  const remId = useRunAsync(async () => {
+  const gistId = useTracker(async (plugin) => {
     const context = await plugin.widget.getWidgetContext<WidgetLocation.UnderRemEditor>();
-    return context.remId;
-  }, []);
-
-  const gistId = useRunAsync(async () => {
+    const remId = context.remId;
     const rem = await plugin.rem.findOne(remId);
     if (rem) {
       const remTextInMd = await plugin.richText.toMarkdown(rem.text);
@@ -28,10 +19,7 @@ export const GistWidget = () => {
         return match[1];
     }
     return undefined;
-  }, [remId, change]);
-
-  // rerender when rem changed
-  useAPIEventListener(AppEvents.RemChanged, remId, () => setChange(old => !old));
+  });
 
   return gistId
     ? <Gist id={ gistId }/>
